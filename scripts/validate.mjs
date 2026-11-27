@@ -20,15 +20,16 @@ for (const name of ['pluginIcon.svg', 'pluginIcon_dark.svg']) {
 
 const listenerPath = resolve(root, 'src/main/java/com/github/boenkkk/jetbrains/monokaiflatfancy/ThemeSchemeSynchronizer.java');
 check(existsSync(listenerPath), 'Missing ThemeSchemeSynchronizer.java');
+check(!pluginXml.includes('<applicationListener '), 'Use <applicationListeners><listener .../></applicationListeners>');
 check(
-  pluginXml.includes('implementation="com.github.boenkkk.jetbrains.monokaiflatfancy.ThemeSchemeSynchronizer"'),
-  'plugin.xml does not register ThemeSchemeSynchronizer',
+  pluginXml.includes('<listener topic="com.intellij.ide.ui.LafManagerListener" class="com.github.boenkkk.jetbrains.monokaiflatfancy.ThemeSchemeSynchronizer"/>'),
+  'plugin.xml does not register ThemeSchemeSynchronizer on LafManagerListener.TOPIC',
 );
 if (existsSync(listenerPath)) {
   const listener = readFileSync(listenerPath, 'utf8');
   for (const variant of VARIANTS) {
     check(listener.includes(`com.github.boenkkk.monokaiflatfancy.${variant.id}`), `Listener missing theme id for ${variant.id}`);
-    check(listener.includes(variant.label), `Listener missing scheme name for ${variant.id}`);
+    check(listener.includes(`/themes/monokai-flat-fancy-${variant.id}.xml`), `Listener missing scheme path for ${variant.id}`);
   }
 }
 
@@ -91,6 +92,15 @@ for (const variant of VARIANTS) {
   if (scheme) {
     check(scheme[1] === variant.label, `Unexpected scheme name in ${variant.id}`);
     check(scheme[3] === variant.parentScheme, `Unexpected parent scheme in ${variant.id}`);
+  }
+
+  const background = xml.match(/<option name="BACKGROUND" value="([0-9A-F]{6})"\/>/);
+  check(Boolean(background), `Missing editor BACKGROUND color in ${variant.id}`);
+  if (background) {
+    check(
+      background[1] === theme.colors.primaryBackground.slice(1).toUpperCase(),
+      `Editor BACKGROUND does not match editor.background in ${variant.id}`,
+    );
   }
 
   const attributeNames = [...xml.matchAll(/^    <option name="([^"]+)">/gm)].map((match) => match[1]);

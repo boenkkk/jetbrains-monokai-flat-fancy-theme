@@ -710,9 +710,12 @@ function buildEditorScheme(variant) {
   pushAttribute('CONSOLE_SYSTEM_OUTPUT', { FOREGROUND: rgb(t.comment, base) });
   pushAttribute('CONSOLE_USER_INPUT', { FOREGROUND: rgb(t.string, base) });
 
-  const colorLines = Object.entries(colors)
-    .map(([name, value]) => `    <option name="${name}" value="${value}"/>`)
-    .join('\n');
+  // `BACKGROUND` is the color-scheme editor background. Without it the scheme
+  // inherits the white default, which leaves the editor light on dark themes.
+  const colorLines = [
+    `    <option name="BACKGROUND" value="${rgb(base, base)}"/>`,
+    ...Object.entries(colors).map(([name, value]) => `    <option name="${name}" value="${value}"/>`),
+  ].join('\n');
 
   return [
     `<scheme name="${variant.label}" version="142" parent_scheme="${variant.parentScheme}">`,

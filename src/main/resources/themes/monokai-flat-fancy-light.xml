@@ -1,5 +1,6 @@
 <scheme name="Monokai Flat Fancy Light" version="142" parent_scheme="Default">
   <colors>
+    <option name="BACKGROUND" value="FFFFFF"/>
     <option name="ADDED_LINES_COLOR" value="A5B28A"/>
     <option name="ANNOTATIONS_COLOR" value="272822"/>
     <option name="BLOCK_TERMINAL_DEFAULT_BACKGROUND" value="FFFFFF"/>

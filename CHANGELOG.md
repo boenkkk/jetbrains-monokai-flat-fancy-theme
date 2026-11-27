@@ -15,6 +15,8 @@
 ### Fixed
 
 - Switch the editor color scheme automatically when a Monokai Flat Fancy UI theme is selected.
+- Register the theme listener with `<applicationListeners>` so the plugin descriptor loads on current IDE versions.
+- Set the color scheme `BACKGROUND` option so dark variants no longer fall back to a white editor background.
 
 ### Security
 

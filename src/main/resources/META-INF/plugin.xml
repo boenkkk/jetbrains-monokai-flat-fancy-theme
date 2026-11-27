@@ -33,7 +33,9 @@ changed independently later. Restart the IDE if a newly installed theme does not
 <p>LICENSE: <a href="https://github.com/boenkkk/jetbrains-monokai-flat-fancy-theme/blob/main/LICENSE">MIT</a></p>
 ]]></description>
   <depends>com.intellij.modules.platform</depends>
-  <applicationListener implementation="com.github.boenkkk.jetbrains.monokaiflatfancy.ThemeSchemeSynchronizer"/>
+  <applicationListeners>
+    <listener topic="com.intellij.ide.ui.LafManagerListener" class="com.github.boenkkk.jetbrains.monokaiflatfancy.ThemeSchemeSynchronizer"/>
+  </applicationListeners>
   <extensions defaultExtensionNs="com.intellij">
     <themeProvider id="com.github.boenkkk.monokaiflatfancy.default" path="/themes/monokai-flat-fancy-default.theme.json"/>
     <themeProvider id="com.github.boenkkk.monokaiflatfancy.darker" path="/themes/monokai-flat-fancy-darker.theme.json"/>

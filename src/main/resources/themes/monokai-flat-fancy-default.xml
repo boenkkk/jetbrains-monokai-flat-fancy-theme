@@ -1,5 +1,6 @@
 <scheme name="Monokai Flat Fancy Default" version="142" parent_scheme="Darcula">
   <colors>
+    <option name="BACKGROUND" value="1E1F1C"/>
     <option name="ADDED_LINES_COLOR" value="354319"/>
     <option name="ANNOTATIONS_COLOR" value="D3D3D3"/>
     <option name="BLOCK_TERMINAL_DEFAULT_BACKGROUND" value="1E1F1C"/>

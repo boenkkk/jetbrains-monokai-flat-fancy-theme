@@ -10,15 +10,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 /**
- * Keeps the editor color scheme in sync with the Monokai Flat Fancy UI theme.
- * The IDE restores the last scheme used with a theme, which can leave a light
- * editor active after selecting a dark variant.
+ * Applies the matching editor scheme when a Monokai Flat Fancy UI theme is selected.
+ * The IDE otherwise restores the last scheme used with that theme, which can
+ * leave a light editor active after choosing a dark variant.
  */
 public final class ThemeSchemeSynchronizer implements LafManagerListener {
-  private static final Map<String, String> SCHEMES = Map.of(
-    "com.github.boenkkk.monokaiflatfancy.default", "Monokai Flat Fancy Default",
-    "com.github.boenkkk.monokaiflatfancy.darker", "Monokai Flat Fancy Darker",
-    "com.github.boenkkk.monokaiflatfancy.light", "Monokai Flat Fancy Light"
+  private static final Map<String, String> SCHEME_PATHS = Map.of(
+    "com.github.boenkkk.monokaiflatfancy.default", "/themes/monokai-flat-fancy-default.xml",
+    "com.github.boenkkk.monokaiflatfancy.darker", "/themes/monokai-flat-fancy-darker.xml",
+    "com.github.boenkkk.monokaiflatfancy.light", "/themes/monokai-flat-fancy-light.xml"
   );
 
   @Override
@@ -26,11 +26,11 @@ public final class ThemeSchemeSynchronizer implements LafManagerListener {
     UIThemeLookAndFeelInfo theme = source.getCurrentUIThemeLookAndFeel();
     if (theme == null) return;
 
-    String schemeName = SCHEMES.get(theme.getId());
-    if (schemeName == null) return;
+    String path = SCHEME_PATHS.get(theme.getId());
+    if (path == null) return;
 
     EditorColorsManager colorsManager = EditorColorsManager.getInstance();
-    EditorColorsScheme scheme = colorsManager.getScheme(schemeName);
+    EditorColorsScheme scheme = colorsManager.getScheme(path);
     if (scheme != null) {
       colorsManager.setGlobalScheme(scheme);
     }
