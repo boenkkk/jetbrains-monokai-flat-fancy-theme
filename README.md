@@ -30,9 +30,8 @@ Install from the JetBrains Marketplace once the plugin is published, or install 
 
 ## Usage
 
-- UI theme: `Settings` > `Appearance & Behavior` > `Appearance` > `Theme`.
-- Editor colors: `Settings` > `Editor` > `Color Scheme`.
-- The UI theme and color scheme are independent; mixing them is supported.
+- UI theme: `Settings` > `Appearance & Behavior` > `Appearance` > `Theme`. Selecting a Monokai Flat Fancy theme also switches the editor color scheme to the matching variant.
+- Editor colors: `Settings` > `Editor` > `Color Scheme`. The scheme can still be changed independently afterwards.
 
 ## Development
 
@@ -54,7 +53,8 @@ npm run check        # both of the above
 - `scripts/generate-icons.mjs`: scales `icons/monokai-flat-fancy.svg` to the required 40x40 plugin icons.
 - `scripts/validate.mjs`: fails on malformed colors, unresolved UI color references, duplicate attributes, invalid icons, or missing registrations.
 - `icons/monokai-flat-fancy.svg`: upstream icon asset from `boenkkk/openidea-monokai-flat-fancy-theme`.
-- `src/main/resources/META-INF/plugin.xml`: registers all six resources with the IDE.
+- `src/main/java/`: applies the matching editor scheme when a Monokai Flat Fancy UI theme is selected.
+- `src/main/resources/META-INF/plugin.xml`: registers all six resources and the theme listener with the IDE.
 - `src/main/resources/themes/`: generated output, tracked in Git.
 
 ### Porting notes

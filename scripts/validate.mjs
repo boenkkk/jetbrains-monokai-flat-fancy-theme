@@ -18,6 +18,20 @@ for (const name of ['pluginIcon.svg', 'pluginIcon_dark.svg']) {
   check(svg.includes('width="40"') && svg.includes('height="40"'), `${name} must be 40x40`);
 }
 
+const listenerPath = resolve(root, 'src/main/java/com/github/boenkkk/jetbrains/monokaiflatfancy/ThemeSchemeSynchronizer.java');
+check(existsSync(listenerPath), 'Missing ThemeSchemeSynchronizer.java');
+check(
+  pluginXml.includes('implementation="com.github.boenkkk.jetbrains.monokaiflatfancy.ThemeSchemeSynchronizer"'),
+  'plugin.xml does not register ThemeSchemeSynchronizer',
+);
+if (existsSync(listenerPath)) {
+  const listener = readFileSync(listenerPath, 'utf8');
+  for (const variant of VARIANTS) {
+    check(listener.includes(`com.github.boenkkk.monokaiflatfancy.${variant.id}`), `Listener missing theme id for ${variant.id}`);
+    check(listener.includes(variant.label), `Listener missing scheme name for ${variant.id}`);
+  }
+}
+
 function check(condition, message) {
   if (!condition) failures.push(message);
 }

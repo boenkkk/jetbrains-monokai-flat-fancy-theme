@@ -20,8 +20,8 @@ and a matching editor color scheme.
 </ul>
 
 <p>
-The editor scheme can also be selected independently from the UI theme. Restart the IDE if a newly installed theme does not
-appear in the list yet.
+Selecting a Monokai Flat Fancy UI theme also switches the editor color scheme to its matching variant. The scheme can still be
+changed independently later. Restart the IDE if a newly installed theme does not appear in the list yet.
 </p>
 
 <h3>Source</h3>
@@ -33,6 +33,7 @@ appear in the list yet.
 <p>LICENSE: <a href="https://github.com/boenkkk/jetbrains-monokai-flat-fancy-theme/blob/main/LICENSE">MIT</a></p>
 ]]></description>
   <depends>com.intellij.modules.platform</depends>
+  <applicationListener implementation="com.github.boenkkk.jetbrains.monokaiflatfancy.ThemeSchemeSynchronizer"/>
   <extensions defaultExtensionNs="com.intellij">
     <themeProvider id="com.github.boenkkk.monokaiflatfancy.default" path="/themes/monokai-flat-fancy-default.theme.json"/>
     <themeProvider id="com.github.boenkkk.monokaiflatfancy.darker" path="/themes/monokai-flat-fancy-darker.theme.json"/>

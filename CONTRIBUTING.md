@@ -1,6 +1,6 @@
 # Contributing
 
-The project is a metadata-only IntelliJ Platform plugin. There is no Java or Kotlin source code.
+The theme resources are metadata-only; the only Java source is a small listener that keeps the editor color scheme in sync with the selected UI theme.
 
 ## Development workflow
 
@@ -19,7 +19,8 @@ The project is a metadata-only IntelliJ Platform plugin. There is no Java or Kot
 - `icons/`: source assets for plugin icons.
 - `scripts/validate.mjs`: structural checks.
 - `src/main/resources/themes/`: generated theme resources, committed to Git.
-- `src/main/resources/META-INF/plugin.xml`: extension registrations.
+- `src/main/java/`: theme-to-editor-scheme synchronization listener.
+- `src/main/resources/META-INF/plugin.xml`: extension registrations and listener.
 - `.run/`: IDE run configurations for generation, build, and sandbox launch.
 - `.github/workflows/`: CI build and release publishing.
 

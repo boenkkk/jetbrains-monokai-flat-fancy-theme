@@ -14,6 +14,8 @@
 
 ### Fixed
 
+- Switch the editor color scheme automatically when a Monokai Flat Fancy UI theme is selected.
+
 ### Security
 
 ## 1.0.0 - 2026-11-27
