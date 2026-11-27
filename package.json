@@ -1,0 +1,11 @@
+{
+  "name": "jetbrains-monokai-flat-fancy-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generator and validator for the JetBrains port of Monokai Flat Fancy",
+  "scripts": {
+    "generate": "node scripts/generate-themes.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check": "npm run generate && npm run validate"
+  }
+}

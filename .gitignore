@@ -1,0 +1,7 @@
+.gradle
+.idea
+.qodana
+build
+.intellijPlatform
+node_modules
+.DS_Store

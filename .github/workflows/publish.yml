@@ -1,0 +1,88 @@
+# Patches CHANGELOG.md into the plugin, builds the distribution, publishes to
+# the JetBrains Marketplace, then opens a draft GitHub release for review.
+
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    name: Publish Plugin
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: 21
+          cache: 'gradle'
+
+      - name: Export Properties
+        run: |
+          PROPERTIES="$(./gradlew properties --console=plain -q)"
+          echo "version=$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')" >> $GITHUB_ENV
+          echo "name=$(echo "$PROPERTIES" | grep "^pluginName:" | cut -f2- -d ' ')" >> $GITHUB_ENV
+
+      - name: Check Theme Resources
+        run: npm run check
+
+      - name: Patch Changelog
+        run: ./gradlew patchChangelog
+
+      - name: Verify Plugin
+        run: ./gradlew verifyPlugin
+
+      - name: Build Plugin
+        run: ./gradlew buildPlugin
+
+      - name: Upload Distribution
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.name }}-${{ env.version }}
+          path: build/distributions/*.zip
+
+      - name: Output Release Notes
+        run: |
+          echo "# Tagged Release" >> $GITHUB_STEP_SUMMARY
+          RELEASE_NOTES="$(./gradlew getChangelog --console=plain -q)"
+          DELIMITER="$(openssl rand -hex 8)"
+
+          echo "release_notes<<$DELIMITER" >> $GITHUB_ENV
+          echo "$RELEASE_NOTES" >> $GITHUB_ENV
+          echo "$DELIMITER" >> $GITHUB_ENV
+
+          echo "$RELEASE_NOTES" >> $GITHUB_STEP_SUMMARY
+
+      - name: Publish Plugin
+        env:
+          PUBLISH_TOKEN: ${{ secrets.JETBRAINS_MARKETPLACE_TOKEN }}
+        run: ./gradlew publishPlugin
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/distributions/*.zip
+          body: ${{ env.release_notes }}
+          draft: true
+
+      - name: Commit Release Notes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "docs: update changelog"
+          branch: main
+          file_pattern: CHANGELOG.md

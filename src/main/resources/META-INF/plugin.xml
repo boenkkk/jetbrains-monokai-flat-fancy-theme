@@ -1,0 +1,44 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+  <id>com.github.boenkkk.jetbrains.monokaiflatfancy</id>
+  <name>Monokai Flat Fancy Theme</name>
+  <vendor url="https://github.com/boenkkk">boenkkk</vendor>
+  <description><![CDATA[
+<h2>Flat and fancy Monokai for JetBrains IDEs</h2>
+
+<p>
+A port of the <a href="https://marketplace.visualstudio.com/items?itemName=boenkkk.monokai-flat-fancy">Monokai Flat Fancy</a>
+Visual Studio Code theme. Three variants are included: Default, Darker, and Light. Each variant carries both IDE UI colors
+and a matching editor color scheme.
+</p>
+
+<h3>Usage</h3>
+
+<ul>
+  <li>UI theme: <strong>Settings</strong> &rarr; <strong>Appearance &amp; Behavior</strong> &rarr; <strong>Appearance</strong></li>
+  <li>Editor colors: <strong>Settings</strong> &rarr; <strong>Editor</strong> &rarr; <strong>Color Scheme</strong></li>
+</ul>
+
+<p>
+The editor scheme can also be selected independently from the UI theme. Restart the IDE if a newly installed theme does not
+appear in the list yet.
+</p>
+
+<h3>Source</h3>
+
+<p>
+<a href="https://github.com/boenkkk/jetbrains-monokai-flat-fancy-theme" target="_blank">GitHub Repository</a>
+</p>
+
+<p>LICENSE: <a href="https://github.com/boenkkk/jetbrains-monokai-flat-fancy-theme/blob/main/LICENSE">MIT</a></p>
+]]></description>
+  <depends>com.intellij.modules.platform</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <themeProvider id="com.github.boenkkk.monokaiflatfancy.default" path="/themes/monokai-flat-fancy-default.theme.json"/>
+    <themeProvider id="com.github.boenkkk.monokaiflatfancy.darker" path="/themes/monokai-flat-fancy-darker.theme.json"/>
+    <themeProvider id="com.github.boenkkk.monokaiflatfancy.light" path="/themes/monokai-flat-fancy-light.theme.json"/>
+    <bundledColorScheme id="com.github.boenkkk.monokaiflatfancy.editor.default" path="/themes/monokai-flat-fancy-default"/>
+    <bundledColorScheme id="com.github.boenkkk.monokaiflatfancy.editor.darker" path="/themes/monokai-flat-fancy-darker"/>
+    <bundledColorScheme id="com.github.boenkkk.monokaiflatfancy.editor.light" path="/themes/monokai-flat-fancy-light"/>
+  </extensions>
+</idea-plugin>
