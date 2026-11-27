@@ -9,6 +9,15 @@ const pluginXml = readFileSync(resolve(root, 'src/main/resources/META-INF/plugin
 const hex = /^#[0-9A-Fa-f]{6}$/;
 const failures = [];
 
+check(existsSync(resolve(root, 'icons/monokai-flat-fancy.svg')), 'Missing source plugin icon');
+for (const name of ['pluginIcon.svg', 'pluginIcon_dark.svg']) {
+  const path = resolve(root, `src/main/resources/META-INF/${name}`);
+  check(existsSync(path), `Missing ${name}`);
+  if (!existsSync(path)) continue;
+  const svg = readFileSync(path, 'utf8');
+  check(svg.includes('width="40"') && svg.includes('height="40"'), `${name} must be 40x40`);
+}
+
 function check(condition, message) {
   if (!condition) failures.push(message);
 }

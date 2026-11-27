@@ -39,8 +39,8 @@ Install from the JetBrains Marketplace once the plugin is published, or install 
 Generated resources are committed so a plain `./gradlew buildPlugin` works without Node.js.
 
 ```bash
-npm run generate     # regenerate src/main/resources/themes from scripts/theme-config.mjs
-npm run validate     # check JSON/XML structure and plugin.xml registrations
+npm run generate     # regenerate theme resources and plugin icons
+npm run validate     # check JSON/XML structure, icons, and plugin.xml registrations
 npm run check        # both of the above
 ./gradlew buildPlugin
 ./gradlew runIde
@@ -51,7 +51,9 @@ npm run check        # both of the above
 
 - `scripts/theme-config.mjs`: palette values copied from the VS Code theme plus role-to-attribute mappings. Edit this file to change colors.
 - `scripts/generate-themes.mjs`: writes three `.theme.json` UI themes and three `.xml` editor schemes.
-- `scripts/validate.mjs`: fails on malformed colors, unresolved UI color references, duplicate attributes, or missing registrations.
+- `scripts/generate-icons.mjs`: scales `icons/monokai-flat-fancy.svg` to the required 40x40 plugin icons.
+- `scripts/validate.mjs`: fails on malformed colors, unresolved UI color references, duplicate attributes, invalid icons, or missing registrations.
+- `icons/monokai-flat-fancy.svg`: upstream icon asset from `boenkkk/openidea-monokai-flat-fancy-theme`.
 - `src/main/resources/META-INF/plugin.xml`: registers all six resources with the IDE.
 - `src/main/resources/themes/`: generated output, tracked in Git.
 

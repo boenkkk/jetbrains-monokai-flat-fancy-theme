@@ -4,7 +4,7 @@
   "private": true,
   "description": "Generator and validator for the JetBrains port of Monokai Flat Fancy",
   "scripts": {
-    "generate": "node scripts/generate-themes.mjs",
+    "generate": "node scripts/generate-themes.mjs && node scripts/generate-icons.mjs",
     "validate": "node scripts/validate.mjs",
     "check": "npm run generate && npm run validate"
   }

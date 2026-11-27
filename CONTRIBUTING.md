@@ -15,6 +15,8 @@ The project is a metadata-only IntelliJ Platform plugin. There is no Java or Kot
 
 - `scripts/theme-config.mjs`: source of truth for colors and JetBrains attribute groups.
 - `scripts/generate-themes.mjs`: deterministic generator for UI themes and editor schemes.
+- `scripts/generate-icons.mjs`: scales the upstream SVG to the required 40x40 plugin icons.
+- `icons/`: source assets for plugin icons.
 - `scripts/validate.mjs`: structural checks.
 - `src/main/resources/themes/`: generated theme resources, committed to Git.
 - `src/main/resources/META-INF/plugin.xml`: extension registrations.

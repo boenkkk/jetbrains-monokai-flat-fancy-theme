@@ -4,6 +4,8 @@
 
 ### Added
 
+- Plugin icon from the upstream `monokai-flat-fancy` code-sample SVG, scaled to the required 40x40 size.
+
 ### Changed
 
 ### Deprecated
